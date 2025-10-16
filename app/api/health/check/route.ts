@@ -61,8 +61,8 @@ async function checkDatabase(): Promise<CheckResult> {
   const start = Date.now();
 
   try {
-    const supabase = createClient();
-    const { error } = await supabase.from('workspaces').select('id').limit(1);
+    const supabase = await createClient();
+    const { error } = await supabase.from('profiles').select('id').limit(1);
 
     if (error) {
       return {
