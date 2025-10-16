@@ -1,5 +1,3 @@
-'use server'
-
 /**
  * Production-ready error handler
  * Logs errors and returns safe messages to clients

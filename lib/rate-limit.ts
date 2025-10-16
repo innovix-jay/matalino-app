@@ -1,5 +1,3 @@
-'use server'
-
 import { headers } from 'next/headers'
 
 // Simple in-memory rate limiter for production
