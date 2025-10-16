@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
-import { redis } from '@/lib/cache/redis-cache';
 
 export const dynamic = 'force-dynamic';
 export const runtime = 'edge';
@@ -11,7 +10,6 @@ interface HealthCheck {
   uptime: number;
   checks: {
     database: CheckResult;
-    redis: CheckResult;
     api: CheckResult;
   };
   version: string;
@@ -32,7 +30,6 @@ export async function GET(request: NextRequest) {
 
   const checks = {
     database: await checkDatabase(),
-    redis: await checkRedis(),
     api: await checkAPI(),
   };
 
@@ -84,38 +81,6 @@ async function checkDatabase(): Promise<CheckResult> {
       status: 'fail',
       responseTime: Date.now() - start,
       error: error.message || 'Database connection failed',
-    };
-  }
-}
-
-/**
- * Check Redis connectivity
- */
-async function checkRedis(): Promise<CheckResult> {
-  const start = Date.now();
-
-  try {
-    // Try to set and get a test value
-    await redis.set('health:check', Date.now(), { ex: 10 });
-    const value = await redis.get('health:check');
-
-    if (!value) {
-      return {
-        status: 'fail',
-        responseTime: Date.now() - start,
-        error: 'Redis read/write failed',
-      };
-    }
-
-    return {
-      status: 'pass',
-      responseTime: Date.now() - start,
-    };
-  } catch (error: any) {
-    return {
-      status: 'fail',
-      responseTime: Date.now() - start,
-      error: error.message || 'Redis connection failed',
     };
   }
 }
