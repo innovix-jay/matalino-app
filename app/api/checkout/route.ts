@@ -9,7 +9,7 @@ export async function POST(req: NextRequest) {
   if (!stripeSecret) {
     return NextResponse.json({ error: 'Stripe not configured' }, { status: 500 })
   }
-  const stripe = new Stripe(stripeSecret, { apiVersion: '2024-06-20' })
+  const stripe = new Stripe(stripeSecret, { apiVersion: '2024-04-10' })
 
   const url = new URL(req.url)
   const productId = url.searchParams.get('productId')
