@@ -116,16 +116,3 @@ async function checkAPI(): Promise<CheckResult> {
   }
 }
 
-/**
- * Detailed health check with more metrics
- * GET /api/health/check?detailed=true
- */
-export async function getDetailedHealth(): Promise<any> {
-  return {
-    memory: process.memoryUsage ? process.memoryUsage() : {},
-    cpu: process.cpuUsage ? process.cpuUsage() : {},
-    environment: process.env.NODE_ENV,
-    platform: process.platform,
-    nodeVersion: process.version,
-  };
-}
