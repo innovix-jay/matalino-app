@@ -1,288 +1,300 @@
-# Matalino - Creator Platform
+# JcalAI - AI-Powered No-Code App Builder
 
-A modern creator platform built with Next.js 14, Supabase, and Stripe for selling digital products, managing subscribers, and growing your creator business.
+**By Innovix Dynamix**
 
-## 🚀 Features
-
-- **Authentication** - Google OAuth and email/password via Supabase
-- **Products** - Create and sell digital products, courses, and services
-- **Payments** - Stripe Checkout integration for secure payments
-- **Email Subscribers** - Build and manage your email list
-- **Multi-tenant** - Secure data isolation with Row Level Security
-- **Dashboard** - Beautiful admin interface for creators
-- **Responsive** - Mobile-first design with Tailwind CSS
-
-## 🏗️ Tech Stack
-
-- **Framework**: [Next.js 14](https://nextjs.org/) (App Router)
-- **Database**: [Supabase](https://supabase.com/) (PostgreSQL)
-- **Authentication**: [Supabase Auth](https://supabase.com/auth)
-- **Payments**: [Stripe](https://stripe.com/)
-- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
-- **UI Components**: [Radix UI](https://www.radix-ui.com/)
-- **Deployment**: [Vercel](https://vercel.com/)
-
-## 📦 Quick Start
-
-### Prerequisites
-
-- Node.js 18+ and npm
-- Supabase account (free tier works)
-- Stripe account (test mode is fine)
-- Git installed
-
-### Local Development
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/innovix-jay/matalino-app.git
-   cd matalino-app
-   ```
-
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
-
-3. **Set up environment variables**
-   ```bash
-   cp env.example .env.local
-   ```
-   
-   Edit `.env.local` and add your keys:
-   - Supabase URL and Anon Key
-   - Stripe Publishable and Secret keys
-   - App URL (http://localhost:3000 for local)
-
-4. **Run the development server**
-   ```bash
-   npm run dev
-   ```
-
-5. **Open your browser**
-   Navigate to [http://localhost:3000](http://localhost:3000)
-
-## 🗄️ Database Setup
-
-1. Create a Supabase project at https://supabase.com/dashboard
-
-2. Run the migrations in the Supabase SQL Editor:
-   - First run: `supabase/migrations/001_initial_schema.sql`
-   - Then run: `supabase/migrations/002_rls_policies.sql`
-
-3. Enable Google OAuth in Supabase:
-   - Go to Authentication → Providers
-   - Enable Google
-   - Add your Google OAuth credentials
-
-4. Update redirect URLs in Supabase:
-   - Go to Authentication → URL Configuration
-   - Add: `http://localhost:3000/auth/callback`
-
-## 💳 Stripe Setup
-
-1. Create a Stripe account at https://stripe.com
-
-2. Get your test API keys:
-   - Dashboard → Developers → API Keys
-   - Copy Publishable key (pk_test_...)
-   - Copy Secret key (sk_test_...)
-
-3. Add keys to `.env.local`
-
-4. Test with test card: `4242 4242 4242 4242`
-
-## 🌐 Production Deployment
-
-### Deploy to Vercel
-
-1. **Push to GitHub**
-   ```bash
-   git push origin main
-   ```
-
-2. **Import to Vercel**
-   - Go to https://vercel.com/new
-   - Import `innovix-jay/matalino-app`
-   - Add environment variables (see `VERCEL_ENV_VARS.md`)
-   - Deploy
-
-3. **Post-deployment**
-   - Update Supabase redirect URLs with Vercel URL
-   - Configure Stripe webhook
-   - Test the production app
-
-### Complete Deployment Guide
-
-See these files for detailed instructions:
-- `DEPLOYMENT.md` - Step-by-step deployment guide
-- `VERCEL_ENV_VARS.md` - All environment variables explained
-- `PRODUCTION_CHECKLIST.md` - Pre-launch checklist
-- `STRIPE_SETUP.md` - Stripe configuration guide
-
-## 📁 Project Structure
-
-```
-matalino/
-├── app/                      # Next.js 14 App Router
-│   ├── api/                  # API routes
-│   │   ├── checkout/         # Stripe checkout
-│   │   └── webhooks/         # Stripe webhooks
-│   ├── auth/                 # Authentication pages
-│   ├── dashboard/            # Creator dashboard
-│   │   ├── products/         # Product management
-│   │   └── subscribers/      # Subscriber management
-│   └── store/                # Public storefront
-├── components/               # React components
-│   ├── ui/                   # UI primitives
-│   └── ...                   # Feature components
-├── lib/                      # Shared utilities
-│   ├── actions/              # Server actions
-│   ├── hooks/                # React hooks
-│   ├── supabase/             # Supabase clients
-│   ├── error-handler.ts      # Error handling
-│   ├── rate-limit.ts         # Rate limiting
-│   └── logger.ts             # Logging utility
-├── supabase/
-│   └── migrations/           # Database migrations
-└── types/                    # TypeScript types
-```
-
-## 🔒 Security
-
-- **Authentication**: Supabase Auth with secure session management
-- **Authorization**: Row Level Security (RLS) policies
-- **Rate Limiting**: Built-in rate limiting for API endpoints
-- **HTTPS**: Enforced in production via Vercel
-- **Security Headers**: Configured in `next.config.js`
-- **Input Validation**: Server-side validation on all inputs
-
-## 🧪 Testing
-
-### Run Type Checking
-```bash
-npm run type-check
-```
-
-### Run Linting
-```bash
-npm run lint
-```
-
-### Run All Checks
-```bash
-npm run check
-```
-
-### Production Build Test
-```bash
-npm run build
-npm start
-```
-
-## 📊 Monitoring
-
-### Health Check Endpoint
-```bash
-curl https://your-app.vercel.app/api/health/check
-```
-
-Response:
-```json
-{
-  "status": "healthy",
-  "timestamp": "2025-01-01T00:00:00.000Z",
-  "environment": "production",
-  "version": "1.0.0"
-}
-```
-
-## 🛠️ Development
-
-### Code Style
-- TypeScript for type safety
-- ESLint for code quality
-- Prettier for formatting (recommended)
-
-### Git Workflow
-```bash
-# Create feature branch
-git checkout -b feature/your-feature
-
-# Make changes and commit
-git add .
-git commit -m "feat: your feature description"
-
-# Push to GitHub
-git push origin feature/your-feature
-
-# Create pull request on GitHub
-```
-
-## 📝 Environment Variables
-
-### Required (Local & Production)
-- `NEXT_PUBLIC_SUPABASE_URL` - Your Supabase project URL
-- `NEXT_PUBLIC_SUPABASE_ANON_KEY` - Supabase anon/public key
-- `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` - Stripe publishable key
-- `STRIPE_SECRET_KEY` - Stripe secret key
-- `NEXT_PUBLIC_APP_URL` - Your app URL
-
-### Optional (Production)
-- `STRIPE_WEBHOOK_SECRET` - For order webhooks
-- `SUPABASE_SERVICE_ROLE_KEY` - For admin operations
-- AI API keys (if using AI features)
-- Monitoring service keys (Sentry, etc.)
-
-See `env.example` and `VERCEL_ENV_VARS.md` for complete list.
-
-## 🤝 Contributing
-
-Contributions are welcome! Please:
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
-
-## 📄 License
-
-This project is private and proprietary.
-
-## 🆘 Support
-
-### Documentation
-- [Next.js Docs](https://nextjs.org/docs)
-- [Supabase Docs](https://supabase.com/docs)
-- [Stripe Docs](https://stripe.com/docs)
-
-### Troubleshooting
-See `PRODUCTION_CHECKLIST.md` for common issues and solutions.
-
-### Contact
-- Email: support@matalino.app (update with your actual email)
-- GitHub Issues: [Create an issue](https://github.com/innovix-jay/matalino-app/issues)
-
-## 🗺️ Roadmap
-
-- [ ] AI-powered content generation
-- [ ] Email campaign builder
-- [ ] Link-in-bio feature
-- [ ] Analytics dashboard
-- [ ] Mobile app
-- [ ] Multi-language support
-
-## ⭐ Acknowledgments
-
-Built with:
-- Next.js by Vercel
-- Supabase for backend
-- Stripe for payments
-- Tailwind CSS for styling
-- Radix UI for components
+Transform ideas into production-ready applications in minutes with the power of AI. JcalAI is a comprehensive no-code platform that rivals Replit, Cursor, Lovable, Bolt, and Base44—combining intuitive visual editing with intelligent AI scaffolding to deliver complete, customizable digital products.
 
 ---
 
-Made with ❤️ for creators
+## 🌟 Vision
 
+JcalAI empowers users to:
+- **Prompt for ideas** and receive working MVPs or prototypes
+- **Build web and mobile applications** without writing code
+- **Create automations, AI tools, and integrations** visually
+- **Deploy anywhere** with full code ownership
+
+---
+
+## 🚀 Core Features
+
+### 1. **AI-Powered Project Scaffolding**
+- Describe your app in natural language
+- AI analyzes requirements and generates complete project structure
+- Automatic page, component, database, and API generation
+- Smart technology stack selection (Next.js, Supabase, Tailwind, etc.)
+- Production-ready code from day one
+
+### 2. **Visual Drag & Drop Builder**
+- Real-time visual editor powered by Craft.js
+- Comprehensive component library (layouts, forms, data displays, navigation)
+- Live preview with desktop/tablet/mobile viewports
+- Layer management and component settings
+- Undo/redo functionality
+
+### 3. **Component Library**
+Built-in components include:
+- **Layouts**: Container, Grid, Card
+- **Content**: Text (with inline editing), Image, Hero sections
+- **Navigation**: Navbar, Footer
+- **Forms**: Input fields, Form containers, Buttons
+- **Custom**: Extensible component system
+
+### 4. **Database Designer** (Coming Soon)
+- Visual database schema builder
+- Relationship mapping (one-to-one, one-to-many, many-to-many)
+- Auto-generated SQL migrations
+- Integration with Supabase/PostgreSQL
+
+### 5. **API Builder** (Coming Soon)
+- Visual API endpoint creation
+- Request/response schema definition
+- Authentication and rate limiting
+- Visual workflow builder or custom code
+
+### 6. **Integration Hub** (Coming Soon)
+- Pre-built integrations (Stripe, SendGrid, Twilio, etc.)
+- Custom API connectors
+- Webhook automation
+
+### 7. **Template System** (Coming Soon)
+- 100+ pre-built templates
+- Categories: Dashboard, E-commerce, SaaS, Landing Pages, Blogs
+- Industry-specific templates
+- Fully customizable
+
+### 8. **Deployment & Export**
+- One-click deployment to Vercel, Netlify, AWS
+- Custom domain support
+- Export full source code
+- CI/CD integration
+
+### 9. **Real-time Collaboration** (Coming Soon)
+- Multi-user editing
+- Role-based permissions (Owner, Editor, Viewer)
+- Activity tracking and version history
+
+---
+
+## 🏗️ Architecture
+
+### Tech Stack
+- **Frontend**: Next.js 14, React 18, TypeScript
+- **Styling**: Tailwind CSS, CSS-in-JS
+- **UI Components**: Radix UI, Shadcn/ui
+- **Visual Editor**: Craft.js
+- **Drag & Drop**: @dnd-kit
+- **Backend**: Supabase (PostgreSQL, Auth, Storage)
+- **AI**: Custom routing engine for multiple LLMs
+- **Deployment**: Vercel (primary), Netlify, AWS (optional)
+
+### Database Schema
+The platform uses a comprehensive PostgreSQL schema with:
+- **projects**: App/project metadata and configuration
+- **pages**: Individual pages within projects
+- **components**: Reusable UI components
+- **database_schemas**: Visual database designs
+- **api_endpoints**: API endpoint definitions
+- **integrations**: Third-party service connections
+- **templates**: Pre-built project templates
+- **deployments**: Deployment history and status
+- **ai_generations**: AI generation tracking
+- **project_collaborators**: Team collaboration
+- **project_activity**: Audit logs
+
+---
+
+## 📖 Getting Started
+
+### Prerequisites
+- Node.js 18+ and npm/yarn
+- Supabase account (free tier works)
+- Optional: API keys for AI services (OpenAI, Anthropic, Google)
+
+### Installation
+
+1. **Clone the repository**
+```bash
+git clone <your-repo-url>
+cd jcalai
+```
+
+2. **Install dependencies**
+```bash
+npm install
+```
+
+3. **Set up environment variables**
+Create a `.env.local` file:
+```env
+# Supabase
+NEXT_PUBLIC_SUPABASE_URL=your-supabase-url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
+
+# AI Services (optional)
+OPENAI_API_KEY=your-openai-key
+ANTHROPIC_API_KEY=your-anthropic-key
+```
+
+4. **Run database migrations**
+```bash
+# Use Supabase CLI or run migrations in Supabase Studio
+```
+
+5. **Start the development server**
+```bash
+npm run dev
+```
+
+Visit `http://localhost:3000` to see JcalAI in action!
+
+---
+
+## 🎯 Usage
+
+### Creating Your First App
+
+1. **Sign Up/Login** at `/auth/signup`
+2. **Navigate to Projects** at `/dashboard/projects`
+3. **Click "Create with AI"**
+4. **Choose an app type** (Web App, E-commerce, SaaS, etc.)
+5. **Describe your app** in natural language:
+   ```
+   Build a modern task management app with team collaboration,
+   time tracking, and project boards. Include user authentication,
+   email notifications, and a clean dashboard with analytics.
+   Use a blue and white color scheme.
+   ```
+6. **Generate** and watch AI build your app in seconds
+7. **Customize** in the visual builder
+8. **Deploy** with one click
+
+### Using the Visual Builder
+
+1. **Drag & drop components** from the left sidebar
+2. **Click to select** and edit properties in the right panel
+3. **Double-click text** to edit inline
+4. **Use layers panel** to manage component hierarchy
+5. **Switch viewports** to test responsiveness
+6. **Save** your changes frequently
+7. **Preview** in a new tab
+8. **Export** code or deploy
+
+---
+
+## 🏆 Competitive Advantages
+
+### vs. Replit
+- **Faster**: AI-powered scaffolding creates complete projects in seconds
+- **Visual-first**: No-code interface with drag & drop
+- **Smarter**: Automatic technology stack selection
+
+### vs. Lovable
+- **More Powerful**: Full database design, API integrations, complex logic
+- **Deeper**: Backend logic, not just UI
+- **Extensible**: Export and own your code
+
+### vs. Bolt
+- **Smarter**: Advanced AI routing and cost optimization
+- **Better Architecture**: Intelligent framework selection
+- **More Features**: Built-in integrations and deployment
+
+### vs. Cursor
+- **More Accessible**: No coding required
+- **Faster**: Visual building vs. text editing
+- **Flexible**: Export anywhere, deploy anywhere
+
+### vs. Base44
+- **AI-Powered**: Intelligent scaffolding and component generation
+- **Open**: Export full source code
+- **Scalable**: From MVP to production
+
+---
+
+## 🛣️ Roadmap
+
+### ✅ Phase 1: Foundation (Current)
+- [x] Rebrand to JcalAI
+- [x] Database schema for no-code platform
+- [x] Visual editor with Craft.js
+- [x] Core component library
+- [x] AI scaffolding engine
+- [x] Project management
+
+### 🚧 Phase 2: Enhancement (In Progress)
+- [ ] Complete visual database designer
+- [ ] API builder with visual workflows
+- [ ] Template marketplace
+- [ ] Enhanced AI assistant
+- [ ] Code export functionality
+
+### 📅 Phase 3: Scale (Q2 2025)
+- [ ] Real-time collaboration
+- [ ] Mobile app builder
+- [ ] Automation workflows
+- [ ] Integration marketplace
+- [ ] White-label options
+
+### 🔮 Phase 4: Innovation (Q3 2025)
+- [ ] Voice-to-UI generation
+- [ ] Multi-platform publishing
+- [ ] Agent-based automation
+- [ ] Custom AI model training
+- [ ] Enterprise features
+
+---
+
+## 🤝 Contributing
+
+We welcome contributions! Please see our contributing guidelines for details.
+
+---
+
+## 📄 License
+
+Proprietary - © 2025 Innovix Dynamix. All rights reserved.
+
+---
+
+## 🌐 Links
+
+- **Website**: https://jcalai.com
+- **Parent Company**: Innovix Dynamix
+- **Documentation**: Coming soon
+- **Community**: Coming soon
+
+---
+
+## 💡 Philosophy
+
+At JcalAI, we believe that:
+- **Everyone should be able to build software**
+- **AI should empower, not replace, human creativity**
+- **Code ownership matters** - you should own what you build
+- **Speed and quality aren't mutually exclusive**
+- **The best tools are invisible** - they just work
+
+---
+
+## 🎨 Design Principles
+
+1. **Beautiful by Default**: Every generated app looks professional
+2. **Intuitive First**: No manual needed, just build
+3. **Fast Iteration**: Changes in real-time, deploy in seconds
+4. **Production-Ready**: From MVP to scale without rebuilding
+5. **User-Centric**: Designed for creators, by creators
+
+---
+
+## 📞 Support
+
+- **Email**: support@jcalai.com
+- **Discord**: Coming soon
+- **Twitter**: @jcalai
+
+---
+
+**Built with ❤️ by Innovix Dynamix**
+
+*Empowering the next generation of builders*

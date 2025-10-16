@@ -7,8 +7,8 @@ import { Toaster } from 'react-hot-toast'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Matalino - Creator Platform',
-  description: 'All-in-one platform for creators and small businesses',
+  title: 'JcalAI - AI-Powered No-Code App Builder | Innovix Dynamix',
+  description: 'Build production-ready web and mobile apps in minutes with AI. No-code platform for MVPs, prototypes, and scalable digital products. Powered by Innovix Dynamix.',
 }
 
 export default function RootLayout({
