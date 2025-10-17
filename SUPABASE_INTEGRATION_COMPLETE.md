@@ -185,3 +185,4 @@ Your Matalino creator platform now has:
 - **App**: https://src-ly9rgsvdu-jay-cadmus-projects-02376606.vercel.app
 - **Supabase**: https://supabase.com/dashboard/project/hpnmahfdjapnlnhhiqpf
 - **GitHub**: https://github.com/innovix-jay/matalino-app
+

@@ -101,3 +101,4 @@ The Google OAuth authentication is not working because the **redirect URLs in Su
 ---
 
 **The main issue is redirect URL mismatch in Supabase Auth settings!**
+

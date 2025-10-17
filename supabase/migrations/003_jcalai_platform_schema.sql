@@ -385,3 +385,4 @@ ALTER TABLE public.project_activity ENABLE ROW LEVEL SECURITY;
 
 -- RLS Policies will be added in the next migration
 
+

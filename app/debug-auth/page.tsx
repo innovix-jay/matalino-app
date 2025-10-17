@@ -38,10 +38,14 @@ export default function DebugAuthPage() {
     try {
       setError(null)
       const supabase = createClient()
+      const redirectUrl = process.env.NEXT_PUBLIC_APP_URL 
+        ? `${process.env.NEXT_PUBLIC_APP_URL}/auth/callback`
+        : `${window.location.origin}/auth/callback`
+      
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: `${window.location.origin}/auth/callback`
+          redirectTo: redirectUrl
         }
       })
       if (error) {
@@ -93,3 +97,4 @@ export default function DebugAuthPage() {
     </div>
   )
 }
+
