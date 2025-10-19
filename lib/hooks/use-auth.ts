@@ -31,10 +31,14 @@ export function useAuth() {
   }, [supabase.auth])
 
   const signInWithGoogle = async () => {
+    const redirectBase =
+      typeof window !== 'undefined'
+        ? window.location.origin
+        : (process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000')
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: `${process.env.NEXT_PUBLIC_APP_URL || window.location.origin}/auth/callback`
+        redirectTo: `${redirectBase}/auth/callback`
       }
     })
     if (error) throw error
