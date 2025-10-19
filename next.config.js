@@ -17,6 +17,23 @@ const nextConfig = {
   
   // Optimize production builds
   swcMinify: true,
+
+  // Redirect non-www to www for consistent SSL
+  async redirects() {
+    return [
+      {
+        source: '/:path*',
+        has: [
+          {
+            type: 'host',
+            value: 'matalino.online',
+          },
+        ],
+        destination: 'https://www.matalino.online/:path*',
+        permanent: true,
+      },
+    ]
+  },
   
   // Production-ready headers
   async headers() {
